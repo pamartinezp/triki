@@ -114,6 +114,11 @@ function jugar()
                 alert("gano el usuario");
                 break;
             }
+            else if(htxt=="ooo")
+            {
+                alert("gano la maquina");
+                break;
+            }
         }
     }
     
