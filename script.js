@@ -101,6 +101,7 @@ function jugar()
         alert("casilla ya marcada");    
     }
     //******************************************************desicion de quien ganó******************************************************
+    var conpos=0;
     for(var k=1; k<=4; k++)
     {
         for(var i=0; i<=2; i++)
@@ -112,14 +113,74 @@ function jugar()
             if(htxt=="xxx")
             {
                 alert("gano el usuario");
+                conpos=1;
                 break;
             }
             else if(htxt=="ooo")
             {
                 alert("gano la maquina");
+                conpos=1;
                 break;
             }
         }
     }
-    
+    /*******************************************************posibilidades del juego********************************************/
+    var matpos=[];
+    if (conpos==0) 
+    {
+        var vect=[];
+        vect=mat[0]+",";
+        vect+=mat[1]+",";
+        vect+=mat[2];
+        console.log(vect);
+        vect=vect.split(",");
+        console.log(vect);
+        //*********************************contador de casillas libres en el tablero*************************/
+        var conunos=0;
+        for (var i = 0; i <=9; i++) 
+        {
+            if (vect[i]==1) 
+            {
+                conunos=conunos+1;
+            }
+        }
+        console.log("el numero de casillas libres es: ",conunos);
+    }
+    //asignacion de la matriz posibles resultados codigo 
+    for(var j=0; j<=conunos-1; j++)
+    {
+        matpos[j]=vect;   
+    }
+    console.log("la matriz resultante fue: ",matpos);
+    alert(matpos);
+
+    var yauno=0;
+
+    for(var i=0; i<=conunos-1; i++)
+    {
+        var temp=0;
+        for(var j=0; j<=8; j++)
+        {
+            if (vect[j]==1 && yauno==0) 
+            { 
+                if (i==temp) 
+                {
+                    matpos[i][j]="o";
+                    yauno=1;
+                } 
+                else 
+                {
+                    temp=temp+1;
+                    matpos[i][j]=vect[j];
+                }
+            }
+            else
+            {
+                matpos[i][j]=vect[j];
+            }
+            
+        }
+    }
+    console.log("la matriz resultante fue: ",matpos);
+    alert(matpos);
 }
