@@ -12,43 +12,8 @@ window.onload = function()
     console.log("funciono");
 }
 
-function generar()
-{
-    console.log("holamundo");
-    salida.innerHTML=mat[0]+"<br>";
-    salida.innerHTML+=mat[1]+"<br>";
-    salida.innerHTML+=mat[2]+"<br>";
-}
 
-function ganah(filcol,des)
-{
-    console.log("--entro a funcion gana--");
-    var txt="";
-    //ganador horizontal
-    for(var i=0; i<=2; i++)
-    {
-        console.log("--entro a for--");
-        if (des==1) 
-        {
-            txt+=mat[filcol][i]; 
-        } 
-        else if(des==2)
-        {
-            txt+=mat[i][filcol];
-        }
-        else if(des==3)
-        {
-            txt+=mat[i][i];
-        }
-        else 
-        {
-            txt+=mat[i][2-i];
-            console.log(txt);
-        }
-    }
-    console.log("--salio del for--");
-    return txt;
-}
+
 
 //****************************************************funcion jugar**********************************************************
 function jugar()
@@ -126,35 +91,57 @@ function jugar()
     }
     /*******************************************************posibilidades del juego********************************************/
     var matpos=[];
-    if (conpos==0) 
-    {
+    var conteo_jugadas = 0;
+    var posible_pos = 0;
+    /*if (conpos==0) 
+    {*/
         var vect=[];
+        var tmp_cad = "";
+        var pos_jugada = -1;
         vect=mat[0]+",";
+        tmp_cad = mat[0];
         vect+=mat[1]+",";
+        tmp_cad += mat[ 1 ];
         vect+=mat[2];
-        console.log(vect);
+        tmp_cad += mat[ 2 ];
+        //console.log("Vect: " + vect);
         vect=vect.split(",");
-        console.log(vect);
-        //*********************************contador de casillas libres en el tablero*************************/
-        var conunos=0;
-        for (var i = 0; i <=9; i++) 
-        {
-            if (vect[i]==1) 
+        //console.log("Vect: " + vect);
+        
+        //Sacamos la coma del vector.
+        while( tmp_cad.indexOf( "," ) > -1 ) tmp_cad = tmp_cad.replace( ",", "" );        
+        conteo_jugadas = contar_casillas( vect );
+        console.log( "conteo_jugadas " + conteo_jugadas );
+        
+        for( j = 2; j < 20; j ++ )
+        {            
+            if( tmp_cad.indexOf( "1" ) > -1 )
             {
-                conunos=conunos+1;
+                tmp_cad = tmp_cad.replace( "1", j + "" );
             }
         }
-        console.log("el numero de casillas libres es: ",conunos);
-    }
+        
+        console.log( "tmp_cad...." + tmp_cad );
+        vect = tmp_cad.split( "" );
+        
+    posible_pos = 2;
+        
+    /*}*/
     //asignacion de la matriz posibles resultados codigo 
-    for(var j=0; j<=conunos-1; j++)
+    for(var j=0; j < conteo_jugadas; j++)
     {
-        matpos[j]=vect;   
+        matpos.push( tmp_cad.split( "" ) );
+        pos_jugada = matpos[ j ].indexOf( posible_pos + "" );
+        matpos[ j ][ pos_jugada * 1 ] = "o";        
+        console.log( j + ": " + matpos[j] + " pos_jugada " + pos_jugada + " tmp_cad: " + tmp_cad );
+        posible_pos ++;
     }
-    console.log("la matriz resultante fue: ",matpos);
-    alert(matpos);
+    
+    //console.log( "tmp_cad: " + tmp_cad );
+    //console.log("la matriz resultante fue: ", matpos);
+    //alert(matpos);
 
-    var yauno=0;
+    /*var yauno=0;
 
     for(var i=0; i<=conunos-1; i++)
     {
@@ -180,7 +167,11 @@ function jugar()
             }
             
         }
-    }
+    }*/
     console.log("la matriz resultante fue: ",matpos);
-    alert(matpos);
+    //alert(matpos);
 }
+
+
+
+
